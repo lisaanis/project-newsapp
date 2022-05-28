@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:project/view/home.dart';
 import 'package:project/view/register_page.dart';
 import 'package:project/view/dashboard.dart';
 
@@ -166,12 +167,17 @@ class _LoginPageState extends State<LoginPage> {
     bool found = false;
 
     found = _hive.checkLogin(email, password);
+    String message = "";
+    if(!found) {
+      message = "Login Failed";
 
-    if(!found) print("Login Failed");
+      SnackBar snackBar = SnackBar(content: Text(message));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
     else{
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => Dashboard(),
+          builder: (context) => Home(),
         ),
       );
     }

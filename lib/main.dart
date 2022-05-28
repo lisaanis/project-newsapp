@@ -15,7 +15,12 @@ void main() async{
     runApp(MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
+          //primarySwatch: Colors.blueGrey,
+            scaffoldBackgroundColor: Colors.black,
+            backgroundColor: Colors.black,
+            brightness: Brightness.dark,
+            primarySwatch: Colors.blue,
+            canvasColor: Colors.black
         ),
         home: status ? Dashboard() : HomePage()));
   });

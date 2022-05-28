@@ -23,22 +23,22 @@ class _DashboardState extends State<Dashboard> {
               SharedPreference().setLogout();
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
                       (route) => false);
             },
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
       body: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
           children: [
             FutureBuilder(
               future: SharedPreference().getFirstname(),
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return Text("Hello, ${snapshot.data}", style: TextStyle(fontSize: 24),);
+                return Text("Hello, ${snapshot.data}", style: const TextStyle(fontSize: 24),);
               },
             )
           ],
