@@ -4,6 +4,7 @@ class Article {
   String? description;
   String? url;
   String? urlToImage;
+  String? publishedAt;
   String? content;
 
   Article({
@@ -12,6 +13,7 @@ class Article {
     this.description,
     this.url,
     this.urlToImage,
+    this.publishedAt,
     this.content,
   });
 }

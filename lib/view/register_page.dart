@@ -181,7 +181,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildRegisterButton() {
     return _commonSubmitButton(
-      labelButton: "Register",
+      labelButton: "Sign up",
       submitCallback: (value) {
         if (_firstnameController.text.isNotEmpty && _lastnameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
           _hive.addData(

@@ -18,8 +18,6 @@ class _BeritaAppBarState extends State<BeritaAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.grey.shade900,
-      elevation: 10,
-      shadowColor: Colors.grey.shade500,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

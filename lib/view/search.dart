@@ -4,7 +4,6 @@ import 'package:project/helper/newsapi_network.dart';
 import 'package:project/model/article_model.dart';
 import 'package:project/widgets/article.dart';
 
-
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => _SearchState();
@@ -20,18 +19,13 @@ class _SearchState extends State<Search> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade900,
-        elevation:10,
-        shadowColor: Colors.grey.shade500,
         title: Container(
           width: double.infinity,
           height: 40,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: Center(
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey.shade900,
-                //borderRadius: BorderRadius.circular(15)
               ),
               child: TextField(
                 textCapitalization: TextCapitalization.words,
@@ -43,14 +37,6 @@ class _SearchState extends State<Search> {
                 },
                 onEditingComplete: () => setState(() {}),
                 decoration: InputDecoration(
-                  // prefixIcon: IconButton(
-                  //   icon: Icon(
-                  //     Icons.search,
-                  //     color: Colors.white
-                  //   ),
-                  //   onPressed: () => setState(() {}),
-                  // ),
-
                   suffixIcon: IconButton(
                     icon: Icon(
                       Icons.clear,
@@ -90,10 +76,13 @@ class _SearchState extends State<Search> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return ArticleTile(
-                    imageUrl: snapshot.data![index].urlToImage!,
+                    author: snapshot.data![index].author!,
                     title: snapshot.data![index].title!,
-                    desc: snapshot.data![index].description!,
+                    description: snapshot.data![index].description!,
                     url: snapshot.data![index].url!,
+                    urlToImage: snapshot.data![index].urlToImage!,
+                    publishedAt: snapshot.data![index].publishedAt!,
+                    content: snapshot.data![index].content!,
                   );
                 },
               );

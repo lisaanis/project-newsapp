@@ -3,14 +3,18 @@ import 'package:flutter/widgets.dart';
 import 'package:project/view/article.dart';
 
 class ArticleTile extends StatelessWidget {
-  final String? imageUrl, title, desc, url;
+  final String? author, title, description, url, urlToImage, publishedAt, content;
 
-  ArticleTile({
-    required this.imageUrl,
+  ArticleTile(
+      {Key? key,
+    required this.author,
     required this.title,
-    required this.desc,
-    this.url,
-  });
+    required this.description,
+    required this.url,
+    required this.urlToImage,
+    required this.publishedAt,
+    required this.content,})
+  : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,13 @@ class ArticleTile extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ArticleView(
-              articleUrl: url,
+              author: author,
+              title: title,
+              description: description,
+              url: url,
+              urlToImage: urlToImage,
+              publishedAt: publishedAt,
+              content: content,
             ),
           ),
         );
@@ -34,14 +44,17 @@ class ArticleTile extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 18.0,horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10),
                 child: Flex(
-                    direction: Axis.horizontal,
-                    children:[ Expanded(
+                  direction: Axis.horizontal,
+                  children: [
+                    Expanded(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(6),
-                          child: Image.network(imageUrl!, fit: BoxFit.cover)),
-                    ),]
+                          child: Image.network(urlToImage!, fit: BoxFit.cover)),
+                    ),
+                  ],
                 ),
               ),
               Padding(
@@ -50,40 +63,29 @@ class ArticleTile extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 1.2,
                     child: Text(
                       title!,
-                      //style: GoogleFonts.lora(
-                      //color: Colors.white,
-                      //fontSize: 16,
-                      //letterSpacing: 0.3,
-                      //fontWeight: FontWeight.w600,
-                    )
-                ),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    )),
               ),
               //),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal:8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Divider(
                   color: Colors.grey.shade300,
-                ), ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Flex(
-                    direction: Axis.horizontal,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          desc!,
-                          textAlign: TextAlign.justify,
-                          //style: GoogleFonts.inter(
-                          //color: Colors.grey,
-                          //fontWeight: FontWeight.w500,
-                          //letterSpacing: 0.3,
-                          //fontSize: 15,
-                        ),
-                      ),
-                      //),
-                      //),
-                    ]
-                ),
+                child: Flex(direction: Axis.horizontal, children: [
+                  Expanded(
+                    child: Text(
+                      description!,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  //),
+                  //),
+                ]),
               ),
             ],
           ),

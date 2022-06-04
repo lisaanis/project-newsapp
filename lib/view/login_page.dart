@@ -2,9 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:project/view/home.dart';
 import 'package:project/view/register_page.dart';
-import 'package:project/view/dashboard.dart';
-
-import '../helper/hive_database.dart';
+import 'package:project/helper/hive_database.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,8 +12,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController _firstnameController = TextEditingController();
-  TextEditingController _lastnameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -151,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildLoginButton() {
     return _commonSubmitButton(
-      labelButton: "Login",
+      labelButton: "Sign In",
       submitCallback: (value) {
         validateAndSave();
         String currentEmail = _emailController.value.text;

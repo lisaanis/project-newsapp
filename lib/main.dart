@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:project/view/login_page.dart';
+import 'package:project/view/home.dart';
 import 'package:project/model/data_model.dart';
-import 'package:project/view/dashboard.dart';
-import 'package:project/view/homepage.dart';
+import 'package:project/view/login_page.dart';
 import 'helper/shared_preferences.dart';
 import 'dart:ui';
 
@@ -22,7 +21,7 @@ void main() async{
             primarySwatch: Colors.blue,
             canvasColor: Colors.black
         ),
-        home: status ? Dashboard() : HomePage()));
+        home: status ? Home() : LoginPage()));
   });
   //runApp(const MyApp());
 }

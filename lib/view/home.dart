@@ -19,7 +19,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   List<Category> categories = [];
   late Future<List<Article>> _articleFuture;
 
@@ -37,20 +36,37 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: ListView.builder(
-            itemCount: categories.length,
-            itemBuilder: (context, index) {
-              return CategoryTile(
-                imageUrl: categories[index].imageUrl,
-                categoryName: categories[index].name,
-              );
-            },
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    return CategoryTile(
+                      imageUrl: categories[index].imageUrl,
+                      categoryName: categories[index].name,
+                    );
+                  },
+                ),
+              ),
+              IconButton(
+                padding: const EdgeInsets.only(bottom: 25),
+                onPressed: () {
+                  SharedPreference().setLogout();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                      (route) => false);
+                },
+                icon: const Icon(Icons.logout),
+              ),
+            ],
           ),
         ),
       ),
-
       body: Padding(
-        padding: EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 20),
         child: FutureBuilder<List<Article>>(
           future: this._articleFuture,
           builder: (context, snapshot) {
@@ -60,13 +76,18 @@ class _HomeState extends State<Home> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return ArticleTile(
-                    imageUrl: snapshot.data![index].urlToImage!,
+                    author: snapshot.data![index].author!,
                     title: snapshot.data![index].title!,
-                    desc: snapshot.data![index].description!,
+                    description: snapshot.data![index].description!,
                     url: snapshot.data![index].url!,
+                    urlToImage: snapshot.data![index].urlToImage!,
+                    publishedAt: snapshot.data![index].publishedAt!,
+                    content: snapshot.data![index].content!,
                   );
                 },
               );
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
             } else {
               return Center(child: CircularProgressIndicator());
             }
@@ -86,12 +107,12 @@ class CategoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) => CategoryNews(
-              category: categoryName.toLowerCase(),
-            )
-        )
-        );
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CategoryNews(
+                      category: categoryName.toLowerCase(),
+                    )));
       },
       child: Container(
           margin: EdgeInsets.fromLTRB(16, 20, 0, 5),
@@ -101,29 +122,31 @@ class CategoryTile extends StatelessWidget {
               ClipRRect(
                   borderRadius: BorderRadius.circular(6),
                   child: CachedNetworkImage(
-                    imageUrl: imageUrl, width: 250, height: 70, fit: BoxFit.cover,
+                    imageUrl: imageUrl,
+                    width: 250,
+                    height: 70,
+                    fit: BoxFit.cover,
                   )),
               Container(
                 alignment: Alignment.center,
                 width: 120,
                 height: 70,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [Colors.black26,Colors.black],
+                  gradient: LinearGradient(
+                    colors: [Colors.black26, Colors.black],
                   ),
-
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text(categoryName, //style: GoogleFonts.lora(
-                  //color: Colors.white,
-                  //fontSize: 16,
-                  //letterSpacing: 0.3,
-                  //fontWeight: FontWeight.w600,
+                child: Text(
+                  categoryName,
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400
+                  ),
                 ),
               ),
-
             ],
-          )
-      ),
+          )),
     );
   }
 }

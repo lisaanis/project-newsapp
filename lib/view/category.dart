@@ -6,7 +6,10 @@ import 'package:project/widgets/article.dart';
 
 class CategoryNews extends StatefulWidget {
   final String? category;
-  CategoryNews({this.category});
+   CategoryNews({
+     Key? key,
+     required this.category
+  }) : super(key: key) ;
 
   @override
   _CategoryNewsState createState() => _CategoryNewsState();
@@ -34,14 +37,18 @@ class _CategoryNewsState extends State<CategoryNews> {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return ArticleTile(
-                  //null safety measures
-                  imageUrl: snapshot.data![index].urlToImage!,
+                  author: snapshot.data![index].author!,
                   title: snapshot.data![index].title!,
-                  desc: snapshot.data![index].description!,
+                  description: snapshot.data![index].description!,
                   url: snapshot.data![index].url!,
+                  urlToImage: snapshot.data![index].urlToImage!,
+                  publishedAt: snapshot.data![index].publishedAt!,
+                  content: snapshot.data![index].content!,
                 );
               },
             );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
           } else {
             return Center(child: CircularProgressIndicator());
           }
